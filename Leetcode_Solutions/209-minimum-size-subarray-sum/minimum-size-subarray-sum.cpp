@@ -14,12 +14,9 @@ public:
             //if sum goes greater than target control it
             while(sum >= target)
             {
-                if(sum >= target)
-                {
                     minLen = min(minLen, (r-l)+1);
                     sum -= nums[l];
                     l++;
-                }
             }
             //keep incrementing the sum
             r++;
