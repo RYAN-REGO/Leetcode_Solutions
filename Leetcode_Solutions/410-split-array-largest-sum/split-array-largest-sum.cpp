@@ -19,6 +19,8 @@ public:
     return partitions;
 }
     int splitArray(vector<int>& nums, int k) {
+
+        if(nums.size() < k) return -1;
         int maxi = INT_MIN;
         int sum = 0;
     for(int i = 0; i < nums.size(); i++)
