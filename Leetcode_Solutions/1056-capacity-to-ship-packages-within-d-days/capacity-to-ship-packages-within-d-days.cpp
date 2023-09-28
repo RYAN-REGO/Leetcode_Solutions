@@ -18,8 +18,15 @@ public:
         return day;
     }
     int shipWithinDays(vector<int>& weights, int days) {
-        int low = *max_element(weights.begin(), weights.end());
-        int high = accumulate(weights.begin(), weights.end(), 0);
+        int low = INT_MIN;
+        int high = 0;
+        for(int i = 0; i < weights.size(); i++)
+        {
+            //max weights out of all
+            low = max(low, weights[i]);
+            //summation of all weights
+            high += weights[i];
+        }
         int ans = 0;
         while(low <= high)
         {
