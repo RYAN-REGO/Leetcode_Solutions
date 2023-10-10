@@ -2,37 +2,37 @@ class Solution {
 public:
     int search(vector<int>& nums, int target) {
         int n = nums.size();
-        int low = 0;
-        int high = n-1;
+        int left = 0;
+        int right = n-1;
 
-        while(low <= high)
+        while(left <= right)
         {
-            int mid = (low + high) / 2;
+            int mid = left + (right - left) / 2;
             if(nums[mid] == target) return mid;
-
-            if(nums[low] <= nums[mid])
+            //now check which part is sorted in order to apply binary search
+            if(nums[left] <= nums[mid])
             {
-                //here we can say that the left part is sorted
-                if(nums[low] <= target && nums[mid] >= target)
+                if(nums[left] <= target && nums[mid] >= target)
                 {
-                    //element exists within bounds
-                    high = mid-1;
+                    //lies in this part
+                    right = mid-1;
                 }
                 else
-                {   
-                    low = mid+1;
+                {
+                    //exit to the right part
+                    left = mid+1;
                 }
             }
             else
             {
-                //here we can say that the right part is sorted
-                if(nums[mid] <= target && nums[high] >= target)
+                //right part is sorted
+                if(nums[mid] <= target && nums[right] >= target)
                 {
-                    low = mid+1;
+                    left = mid+1;
                 }
                 else
                 {
-                    high = mid-1;
+                    right = mid-1;
                 }
             }
         }
