@@ -1,26 +1,29 @@
 class Solution {
 public:
-    int numSubarraysWithSum(vector<int>& nums, int goal) {
-        int  n = nums.size();
+    int atmostSubarray(vector<int>& nums, int goal)
+    {
+        if(goal < 0) return 0;
+
         int sum = 0;
-        int right = 0;
-        unordered_map<int, int> mpp;
-        int count = 0;
+        int i = 0, j = 0, count = 0;
 
-        while(right < n)
+        while(j < nums.size())
         {
-            sum += nums[right];
-
-            if(sum == goal) count++;
-            //find the required number in the map
-            if(mpp.find(sum - goal) != mpp.end())
+            sum += nums[j];
+            while(sum > goal)
             {
-                //we have a prefix sum
-                count += mpp[sum-goal];
+                //decrement the sum
+                sum -= nums[i];
+                i++;
             }
-            mpp[sum]++;
-            right++;
+            count += (j-i) + 1;
+            j++;
+
         }
         return count;
+    }
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        //Sliding window Solution
+        return atmostSubarray(nums,goal) - atmostSubarray(nums, goal - 1);
     }
 };
